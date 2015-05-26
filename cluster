@@ -1,0 +1,16 @@
+#!/bin/bash
+
+case  "$1" in
+'start')
+  echo "start cluster"
+  docker run --rm -d --name my-haproxy -v etc/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro haproxy:1.5
+  ;;
+'stop')
+  echo "stop cluster"
+  docker stop my-haproxy
+  ;;
+*)
+  echo "usage: $0 { start | stop }"
+		;;
+esac
+exit 0

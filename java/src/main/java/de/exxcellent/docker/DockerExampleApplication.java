@@ -6,6 +6,7 @@ import de.exxcellent.docker.resources.HelloWorldResource;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import io.dropwizard.views.ViewBundle;
 
 /**
  * Created by rguderlei on 26.05.15.
@@ -22,7 +23,7 @@ public class DockerExampleApplication extends Application<DockerExampleConfigura
 
     @Override
     public void initialize(Bootstrap<DockerExampleConfiguration> bootstrap) {
-        // nothing to do yet
+        bootstrap.addBundle(new ViewBundle<DockerExampleConfiguration>()); // add mustache support
     }
 
     @Override

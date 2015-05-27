@@ -9,14 +9,16 @@ public class Saying {
 
     @Length(max = 3)
     private String content;
+    private String hostname;
 
     public Saying() {
         // Jackson deserialization
     }
 
-    public Saying(long id, String content) {
+    public Saying(long id, String content, String hostname) {
         this.id = id;
         this.content = content;
+        this.hostname = hostname;
     }
 
     @JsonProperty
@@ -27,5 +29,9 @@ public class Saying {
     @JsonProperty
     public String getContent() {
         return content;
+    }
+
+    public String getHostname() {
+        return hostname;
     }
 }

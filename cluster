@@ -4,8 +4,8 @@ case  "$1" in
 'start')
   echo "start cluster"
   docker run --add-host=dockerhost:$(ip route | awk '/docker0/ { print $NF }') -d -p 8000:80 --name my-haproxy -v $(pwd)/etc/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro haproxy:1.5
-  docker run -d -p 50801:8080 -p 50811:8081 --name web1 exxcellent/docker_talk
-  docker run -d -p 50802:8080 -p 50812:8081 --name web2 exxcellent/docker_talk
+  docker run -d -p 50801:8080 -p 50811:8081 --name web1 -h web1 exxcellent/docker_talk
+  docker run -d -p 50802:8080 -p 50812:8081 --name web2 -h web1 exxcellent/docker_talk
   ;;
 'stop')
   echo "stop cluster"

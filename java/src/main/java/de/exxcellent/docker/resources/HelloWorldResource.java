@@ -7,12 +7,13 @@ package de.exxcellent.docker.resources;
 import com.codahale.metrics.annotation.Timed;
 import com.google.common.base.Optional;
 import de.exxcellent.docker.representations.Saying;
+import de.exxcellent.docker.representations.SayingView;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Path("/hello-world")
@@ -30,8 +31,27 @@ public class HelloWorldResource {
 
     @GET
     @Timed
+    @Produces(MediaType.APPLICATION_JSON)
     public Saying sayHello(@QueryParam("name") Optional<String> name) {
-        final String value = String.format(template, name.or(defaultName));
-        return new Saying(counter.incrementAndGet(), value);
+        try {
+            final String hostname = InetAddress.getLocalHost().getHostName();
+            final String value = String.format(template, name.or(defaultName), hostname);
+            return new Saying(counter.incrementAndGet(), value, hostname);
+        } catch (UnknownHostException ex) {
+            throw new WebApplicationException(ex.getMessage(), Response.Status.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GET
+    @Timed
+    @Produces(MediaType.TEXT_HTML)
+    public SayingView sayHelloAsHtml(@QueryParam("name") Optional<String> name) {
+        try {
+            final String hostname = InetAddress.getLocalHost().getHostName();
+            final Saying saying = new Saying(counter.incrementAndGet(), name.or(defaultName), hostname);
+            return new SayingView(saying);
+        } catch (UnknownHostException ex) {
+            throw new WebApplicationException(ex.getMessage(), Response.Status.INTERNAL_SERVER_ERROR);
+        }
     }
 }

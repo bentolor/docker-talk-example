@@ -20,4 +20,4 @@ WORKDIR /opt
 EXPOSE 8080
 EXPOSE 8081
 # run the jar on container start
-ENTRYPOINT java -jar app.jar server app.yml
+ENTRYPOINT java -jar app.jar server

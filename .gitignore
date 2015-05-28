@@ -1,4 +1,7 @@
-target/
-docker.iml
-.idea/
-dependency-reduced-pom.xml
+/target
+/dependency-reduced-pom.xml
+/.idea/copyright
+/.idea/inspectionProfiles
+/.idea/libraries
+/.idea/misc.xml
+/.idea/workspace.xml

@@ -18,7 +18,7 @@
 
 ## Verwendung
 
-Zugriff via http://localhost:8080/hello-world?name=me
+Zugriff via http://localhost/hello-world?name=me
 
 ### Microservice einzeln starten
 

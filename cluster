@@ -3,16 +3,15 @@
 case  "$1" in
 'start')
   echo "start cluster"
-  docker run -d --name web1 -h web1 exxcellent/docker_talk
-  docker run -d --name web2 -h web2 exxcellent/docker_talk
-  docker run --link web1:web1 --link web2:web2  -d -p 8000:80 --name my-haproxy -v $(pwd)/etc/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro haproxy:1.5
+  sudo docker run -d --rm --name web1 -h web1 exxcellent/docker_talk
+  sudo docker run -d --rm --name web2 -h web2 exxcellent/docker_talk
+  sudo docker run -d --rm --name balancer --link web1:web1 --link web2:web2 -p 8000:80  -v $(pwd)/etc/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro haproxy:1.5
   ;;
 'stop')
   echo "stop cluster"
-  docker stop my-haproxy
-  docker stop web1
-  docker stop web2
-  docker rm $(docker ps -a -q)
+  sudo docker stop my-haproxy
+  sudo docker stop web1
+  sudo docker stop web2
   ;;
 *)
   echo "usage: $0 { start | stop }"

@@ -1,18 +1,30 @@
-# Beispiel(e) für Docker-Talk
+# Beispiel-Anwendung für einer dockerized HA Java Anwendung
 
 ## Übersicht
 - Container mit HAProxy
 - mehrere Container mit Microservice
 - optional: Container mit Datenbank
 
-## Control
+## Installation
+
+### Erstellen der Anwendung
+
+    mvn package
+
+### Erstellen des Docker-Images
+
+    sudo docker build -t exxcellent/docker_talk .
+
+
+## Verwendung
+
+Zugriff via http://localhost:8080/hello-world?name=me
+
+### Microservice einzeln starten
+
+    java -jar target/rest-microservice-1.0.0.jar server
+
+### Microservice geclustert steuern
+
 - ```cluster start``` startet alle Container
-- ```cluster stop``` beendet && zerstört alle Container
-
-## Zugriff
-
-http://localhost:8080/hello-world?name=me
-
-## Bauen des Java-Webgedöns
-
-cd java && mvn package && docker build -t exxcellent/docker_talk .
+- ```cluster stop``` beendet alle Container

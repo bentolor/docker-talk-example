@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>de.exxcellent</groupId>
-  <artifactId>docker</artifactId>
+  <artifactId>rest-microservice</artifactId>
   <version>1.0.0</version>
   <packaging>jar</packaging>
 
-  <name>docker-example</name>
+  <name>REST Microservice</name>
 
 
   <properties>
@@ -40,6 +40,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.3</version>
         <configuration>
           <source>1.8</source>
           <target>1.8</target>

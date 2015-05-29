@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 public class DockerExampleConfiguration extends Configuration {
     @NotEmpty
-    private String template = "app.yml";
+    private String template = "Hello, %s! (from %s)";
 
     @NotEmpty
     private String defaultName = "Stranger";

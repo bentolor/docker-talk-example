@@ -13,7 +13,7 @@
 FROM java:8
 MAINTAINER Ralph Guderlei
 # add uberjar to image
-ADD target/docker-1.0.0.jar /opt/app.jar
+ADD target/rest-microservice-1.0.0.jar /opt/app.jar
 ADD src/main/resources/example.yml /opt/app.yml
 WORKDIR /opt
 # announce to use port 8080 and 8081

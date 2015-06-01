@@ -5,15 +5,17 @@ case  "$1" in
   echo "starting docker containers"
   sudo docker run -d --name web1 -h web1 exxcellent/docker_talk
   sudo docker run -d --name web2 -h web2 exxcellent/docker_talk
-  sudo docker run -d --name balancer --link web1:web1 --link web2:web2 -p 80:80 -v $(pwd)/etc/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro haproxy:1.5
+  sudo docker run -d --name web3 -h web1 exxcellent/docker_talk
+  sudo docker run -d --name balancer --link web1:web1 --link web2:web2 --link web3:web3 -p 80:80 -v $(pwd)/etc/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro haproxy:1.5
   ;;
 'stop')
   echo "stopping docker containers"
   sudo docker stop balancer
   sudo docker stop web1
   sudo docker stop web2
+  sudo docker stop web3
   echo "deleting docker containers"
-  sudo docker rm web1 web2 balancer
+  sudo docker rm web1 web2 web3 balancer
   ;;
 *)
   echo "usage: $0 { start | stop }"

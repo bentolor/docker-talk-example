@@ -1,23 +1,36 @@
-#####################################################################
-# Sample Dockerfile for a Java fat jar app                          #
-#                                                                   #
-# build image with                                                  #
-# docker build -t exxcellent/docker_talk .                          #
-#                                                                   #
-# run image interactively with                                      #
-# docker run -it --rm -p 8080:8080 exxcellent/docker_talk /bin/bash #
-# run image daemonized with                                         #
-# docker run -d -p 8080:8080 --name lt_app exxcellent/docker_talk   #
-#####################################################################
-# use java 8 as base image
-FROM java:8
+################################################################################
+# Sample Dockerfile for a Java fat jar app                                     #
+#                                                                              #
+# Build image                                                                  #
+#   docker build -t exxcellent/docker_talk .                                   #
+#                                                                              #
+# run image interactively with                                                 #
+#   docker run -it --rm -p 8080:8080 exxcellent/docker_talk /bin/bash          #
+#                                                                              #
+# run image daemonized with                                                    #
+#   docker run -d -p 8080:8080 --name myapp exxcellent/docker_talk             #
+#   docker stop myapp                                                          #
+#   docker start myapp                                                         #
+################################################################################
+
+
+                                            # use java 8-jre as base image
+FROM java:8-jre
 MAINTAINER Ralph Guderlei
-# add uberjar to image
-ADD target/rest-microservice-1.0.0.jar /opt/app.jar
-ADD src/main/resources/example.yml /opt/app.yml
+
+                                            # add JAR & config file to image
 WORKDIR /opt
-# announce to use port 8080 and 8081
-EXPOSE 8080
-EXPOSE 8081
-# run the jar on container start
+ADD target/rest-microservice-1.0.0.jar  app.jar
+ADD src/main/resources/example.yml      app.yml
+
+                                            # announce exported ports
+EXPOSE 8080 8081
+
+                                            # example storage volume
+VOLUME ["/srv/"]
+
+                                            # Clean up APT & tmp when done
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+                                            # run the jar on container start
 ENTRYPOINT java -jar app.jar server

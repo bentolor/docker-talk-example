@@ -14,9 +14,9 @@
 ################################################################################
 
 
-                                            # use java 8-jre as base image
-FROM java:8-jre
-MAINTAINER Ralph Guderlei
+                                            # use java as base image
+FROM java:17-jre
+MAINTAINER Benjamin Schmid
 
                                             # add JAR & config file to image
 WORKDIR /opt

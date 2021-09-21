@@ -15,7 +15,7 @@
 
 
                                             # use java as base image
-FROM java:17-jre
+FROM openjdk:slim
 MAINTAINER Benjamin Schmid
 
                                             # add JAR & config file to image
